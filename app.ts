@@ -22,29 +22,10 @@ app.use(cookieParser());
 //cors => cors origin resorse sharing header
 const origin =  process.env.ORIGIN
 console.log("🚀 ~ origin:", origin)
-
-// Allow multiple origins for development and production
-const allowedOrigins = [
-    "https://lms-chi-ten-61.vercel.app", // Production
-    "https://lms-mern-nine.vercel.app", // Alternative production (backup)
-    "http://localhost:3000", // Local development (Next.js default)
-    "http://localhost:3001", // Alternative local port
-    "http://127.0.0.1:3000", // Alternative localhost
-    "http://127.0.0.1:3001", // Alternative localhost
-];
-
 app.use(
     cors({
-        origin: function (origin, callback) {
-            // Allow requests with no origin (like mobile apps or curl requests)
-            if (!origin) return callback(null, true);
-
-            if (allowedOrigins.includes(origin) || origin === process.env.ORIGIN) {
-                return callback(null, true);
-            } else {
-                return callback(new Error('Not allowed by CORS'));
-            }
-        },
+        origin: "https://lms-chi-ten-61.vercel.app",
+        // origin: origin,
         credentials:true
     })
 );
