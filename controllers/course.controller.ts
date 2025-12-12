@@ -793,16 +793,6 @@ export const generateVedioUrl = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { videoId } = req.body;
-
-      if (!videoId) {
-        return next(new ErrorHandler("Video ID is required", 400));
-      }
-
-      if (!process.env.VDOCIPHER_API_SECRET) {
-        console.error("VDOCIPHER_API_SECRET environment variable is not set");
-        return next(new ErrorHandler("Video service configuration error", 500));
-      }
-
       const response = await axios.post(
         `https://dev.vdocipher.com/api/videos/${videoId}/otp`,
         { ttl: 300 },
@@ -816,8 +806,7 @@ export const generateVedioUrl = CatchAsyncError(
       );
       res.json(response.data);
     } catch (error: any) {
-      console.error("VdoCipher API error:", error.response?.data || error.message);
-      return next(new ErrorHandler("Failed to generate video URL", 500));
+      return next(new ErrorHandler(error.message, 400));
     }
   }
 );
