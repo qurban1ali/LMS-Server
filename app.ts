@@ -24,7 +24,7 @@ const origin =  process.env.ORIGIN
 console.log("🚀 ~ origin:", origin)
 app.use(
     cors({
-        origin: "https://lms-chi-ten-61.vercel.app/",
+        origin: "https://lms-chi-ten-61.vercel.app",
         // origin: origin,
         credentials:true
     })
